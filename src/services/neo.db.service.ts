@@ -66,8 +66,8 @@ export class NeoDbService {
           totalAsteroids: '$count'
         }
       },
-      { $sort: { count: -1 } }
-    ]);
+      { $sort: { count: -1 } },
+    ]).limit(1);
   }
 
   /**
@@ -101,6 +101,6 @@ export class NeoDbService {
         }
       },
       { $sort: { count: -1 } }
-    ]);
+    ]).limit(1);
   }
 }
