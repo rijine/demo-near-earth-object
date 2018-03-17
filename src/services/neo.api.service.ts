@@ -23,7 +23,7 @@ export class NeoApiService {
       const neoData = data.near_earth_objects;
       let neosDocuments: Neo[] = [];
       Object.keys(neoData).map(date => {
-        let neos = neoData[date].map((neo: any) => {
+        const neos = neoData[date].map((neo: any) => {
           return this.mapToModel({ date, ...neo });
         });
         console.log(JSON.stringify(neos));

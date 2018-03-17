@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
     ];
 } else {
     transportsConf = [
-        //new transports.File(LoggerConfig.getLoggerConfig(false).file),
+        // new transports.File(LoggerConfig.getLoggerConfig(false).file),
         new transports.Console(LoggerConfig.getLoggerConfig(false).console),
     ];
 }

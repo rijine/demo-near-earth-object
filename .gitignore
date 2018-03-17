@@ -12,3 +12,4 @@
 dist
 server/logs
 node_modules
+coverage

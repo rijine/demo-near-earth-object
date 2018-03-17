@@ -14,7 +14,7 @@ export class DbConnection {
   }
 
   connect(): any {
-    let promise = mongoose.connect(this.connectionString);
+    const promise = mongoose.connect(this.connectionString);
   }
 
   status(): ConnectionState {
