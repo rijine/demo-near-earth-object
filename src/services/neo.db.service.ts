@@ -23,24 +23,84 @@ export class NeoDbService {
    * finds all hazardous asteroids from db
    */
   static async findAllHazardous() {
-    return await NeoModel.find({isHazardous: true});
+    return await NeoModel.find({ isHazardous: true });
   }
 
   /**
    * returns fastest hazardous or non hazardous asteroids
    * @param isHazardous determine asteroid is hazardous
    */
-  static async findFastest({ isHazardous = false }: any) {}
+  static async findFastest({ isHazardous = false }: any) {
+    return await NeoModel.find({ isHazardous: isHazardous })
+      .sort({ speed: -1 })
+      .limit(1);
+  }
 
   /**
    * returns best year based on hazardous or non hazardous asteroids
    * @param isHazardous determine asteroid is hazardous
    */
-  static async findBestYear({ isHazardous = false }: any) {}
+  static async findBestYear({ isHazardous = false }: any) {
+    return await NeoModel.aggregate([
+      {
+        $match: {
+          isHazardous: false
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          year: { $year: '$date' }
+        }
+      },
+      {
+        $group: {
+          _id: '$year',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          year: '$_id',
+          totalAsteroids: '$count'
+        }
+      },
+      { $sort: { count: -1 } }
+    ]);
+  }
 
   /**
    * returns best month based on hazardous or non hazardous asteroids
    * @param isHazardous determine asteroid is hazardous
    */
-  static async findBestMonth({ isHazardous = false }: any) {}
+  static async findBestMonth({ isHazardous = false }: any) {
+    return await NeoModel.aggregate([
+      {
+        $match: {
+          isHazardous: false
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          month: { $month: '$date' }
+        }
+      },
+      {
+        $group: {
+          _id: '$month',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          month: '$_id',
+          totalAsteroids: '$count'
+        }
+      },
+      { $sort: { count: -1 } }
+    ]);
+  }
 }

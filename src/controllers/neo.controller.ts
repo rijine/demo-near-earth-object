@@ -14,9 +14,8 @@ export class NeoController {
 
   async fastest(req: Request, res: Response, next: NextFunction) {
     try {
-      // test = await
-      await 1;
-      res.json({ success: true });
+      const data = await NeoDbService.findFastest({isHazardous: req.query.hazardous});
+      res.json({ success: true, data });
     } catch (err) {
       return res.json({ success: false, message: err.message });
     }
@@ -24,7 +23,8 @@ export class NeoController {
 
   async bestYear(req: Request, res: Response, next: NextFunction) {
     try {
-      // test = await
+      const data = await NeoDbService.findBestYear({isHazardous: req.query.hazardous});
+      res.json({ success: true, data });
     } catch (err) {
       return res.json({ success: false, message: err.message });
     }
@@ -32,7 +32,8 @@ export class NeoController {
 
   async bestMonth(req: Request, res: Response, next: NextFunction) {
     try {
-      // test = await
+      const data = await NeoDbService.findBestMonth({isHazardous: req.query.hazardous});
+      res.json({ success: true, data });
     } catch (err) {
       return res.json({ success: false, message: err.message });
     }
