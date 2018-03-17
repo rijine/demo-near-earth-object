@@ -3,5 +3,5 @@ export class Neo {
   reference: string;
   name: string;
   speed: number;
-  isHazrdous: boolean;
+  isHazardous: boolean;
 }

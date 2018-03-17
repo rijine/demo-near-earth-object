@@ -8,7 +8,7 @@ export const NeoSchema: Schema = new Schema({
   reference: String,
   name: String,
   speed: Number,
-  isHazrdous: Boolean
+  isHazardous: Boolean
 });
 
 export const NeoModel: Model<INeoModel> = model<INeoModel>(

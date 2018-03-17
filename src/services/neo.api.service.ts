@@ -53,7 +53,7 @@ export class NeoApiService {
       reference: neo_reference_id,
       name,
       speed: close_approach_data[0].relative_velocity.kilometers_per_hour,
-      isHazrdous: is_potentially_hazardous_asteroid
+      isHazardous: is_potentially_hazardous_asteroid
     };
   }
 }

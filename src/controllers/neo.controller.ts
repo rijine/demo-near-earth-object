@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { Log } from '../services/logger';
+import { NeoDbService } from '../services/neo.db.service';
 
 export class NeoController {
   async hazardous(req: Request, res: Response, next: NextFunction) {
     try {
-      // test = await
+      const data = await NeoDbService.findAllHazardous();
+      return res.json({ success: true, data });
     } catch (err) {
       return res.json({ success: false, message: err.message });
     }

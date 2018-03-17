@@ -22,7 +22,9 @@ export class NeoDbService {
   /**
    * finds all hazardous asteroids from db
    */
-  static async findAllHazardous() {}
+  static async findAllHazardous() {
+    return await NeoModel.find({isHazardous: true});
+  }
 
   /**
    * returns fastest hazardous or non hazardous asteroids
