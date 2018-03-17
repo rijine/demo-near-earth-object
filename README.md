@@ -1,85 +1,49 @@
 # Backend Coding Practice
 
-Dear candidate, please follow this readme and solve all questions.
+## Using
+- Node.js + express server
+- All code is in Typescript
+- Test are partially written using Jest
+- Basic Docker file is created - tested in container (docker-compose.yaml is not created)
 
-> Before you can start, you should prepare your development environment.
+## To Run
+- clone repo
+- start mongo
+- update configuration mongo connection string in /config/db.config.ts if necessary
+- npm install
+- npm build
+- npm run serve
 
-**This test requires:**
-- access to the internet
-- your favourite IDE
-- (PHP) working dev environment with PHP 7 and symfony 3.x
-- (Node) working dev environment with Node.js LTS
-- database (MongoDB, Postgres, MySQL)
-- nginx or alternative simple dev web server
-
-**Good luck!**
-
-
---------
+# Accessing Apis
+  - hit rollup api first to migrate data from nasa.
+  - remaining api calls can perform now. Refer table below.
 
 
-## Test tasks:
+## References
+|No. |Api| Route| Parameters|Description|
+|:--- |:--- |:--- |:--- |:--- |
+| 1| default| / | - | returns {hello: "world"}|
+| 2| version | /api/version | - | returns {version: "v1"}|
+| 3| rollup | /neo/rollup | -| pull asteroids information from api and push to db|
+||||||
+|4| hazardous | /neo/hazardous | | returns all hazardous asteroids from the db|
+|5| fastest | /neo/fastest | hazardous=true/false | returns fastest hazardous/non hazardous asteroids from the db based on parameter|
+|6| best-year | /neo/best-year | hazardous=true/false | returns a year and no asteroids based on count hazardous/non hazardous asteroids from the db|
+|7| best-month | /neo/best-year | hazardous=true/false | returns a month and no asteroids based on count hazardous/non hazardous asteroids from the db|
 
-**NOTE:** You are free to use any framework you wish. Bonus points for an explanation of your choice.
 
-1. Specify a default controller
-  - for route `/`
-  - with a proper json return `{"hello":"world!"}`
+# Dockerize
+Basic: Docker file is attached to the sourcecode
+ - This is not using docker compose
+ - You need to set mongodb host before building image - for now.
+### Build
+> "docker build -t mcmklr/nasa-engine ."
 
-2. Use the api.nasa.gov
-  - the API-KEY is `N7LkblDsc5aen05FJqBQ8wU4qSdmsftwJagVK7UD`
-  - documentation: https://api.nasa.gov/api.html#neows-feed
+### Run
+> "docker run --name=nasa1 -p 3000:3000 -d mcmklr/nasa-engine"
 
-3. Write a command
-  - to request the data from the last 3 days from nasa api
-  - response contains count of Near-Earth Objects (NEOs)
-  - persist the values in your DB
-  - Define the model as follows:
-    - date
-    - reference (neo_reference_id)
-    - name
-    - speed (kilometers_per_hour)
-    - is hazardous (is_potentially_hazardous_asteroid)
+### Save
+> "docker save -o <path-to-store>/nasa-engine.tar <image-id>"
 
-4. Create a route `/neo/hazardous`
-  - display all DB entries which contain potentially hazardous asteroids
-  - format JSON
-
-5. Create a route `/neo/fastest?hazardous=(true|false)`
-  - analyze all data
-  - calculate and return the model of the fastest asteroid
-  - with a hazardous parameter, where `true` means `is hazardous`
-  - default hazardous value is `false`
-  - format JSON
-
-6. Create a route `/neo/best-year?hazardous=(true|false)`
-  - analyze all data
-  - calculate and return a year with most asteroids
-  - with a hazardous parameter, where `true` means `is hazardous`
-  - default hazardous value is `false`
-  - format JSON
-
-7. Create a route `/neo/best-month?hazardous=(true|false)`
-  - analyze all data
-  - calculate and return a month with most asteroids (not a month in a year)
-  - with a hazardous parameter, where `true` means `is hazardous`
-  - default hazardous value is `false`
-  - format JSON
-
-## Additional Instructions
-
-- Fork this repository
-- Tests are not optional
-- (PHP) Symfony is the expected framework
-- After you're done, provide us the link to your repository.
-- Leave comments where you were not sure how to properly proceed.
-- Implementations without a README will be automatically rejected.
-
-## Bonus Points
-
-- Clean code!
-- Knowledge of application flow.
-- Knowledge of modern best practices/coding patterns.
-- Componential thinking.
-- Knowledge of Docker.
-- Usage of MongoDB as persistance storage.
+### Loading
+> "docker load -i nasa-engine.tar"

@@ -10,7 +10,7 @@ export class DbConnection {
   private connectionString: string;
 
   constructor() {
-    this.connectionString = 'mongodb://localhost/' + DB_CONFIG.dbName;
+    this.connectionString = DB_CONFIG.connString;
   }
 
   connect(): any {

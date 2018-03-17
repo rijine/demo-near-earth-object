@@ -1,6 +1,6 @@
 export const DB_CONFIG = {
-  dbName:
+  connString:
     process.env.NODE_ENV === 'production'
       ? process.env.DB_NAME
-      : 'nasa_db'
+      : 'mongodb://localhost/nasa_db'
 };
